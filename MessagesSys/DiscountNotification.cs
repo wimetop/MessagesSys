@@ -10,13 +10,10 @@ namespace MessagesSys
 
     public class DiscountNotification
     {
-        // Словник для зберігання підписників за категоріями
-        private readonly Dictionary<string, List<ICustomer>> _subscribers = new();
+        private Dictionary<string, List<ICustomer>> _subscribers = new();
 
-        // Властивість для доступу до підписок (лише для читання)
-        public IReadOnlyDictionary<string, List<ICustomer>> Subscribers => _subscribers;
+        public Dictionary<string, List<ICustomer>> Subscribers => _subscribers;
 
-        // Метод для підписки клієнта на конкретну категорію
         public void Subscribe(string category, ICustomer customer)
         {
             if (!_subscribers.ContainsKey(category))
@@ -31,7 +28,6 @@ namespace MessagesSys
             }
         }
 
-        // Метод для відписки клієнта від конкретної категорії
         public void Unsubscribe(string category, ICustomer customer)
         {
             if (_subscribers.ContainsKey(category) && _subscribers[category].Contains(customer))
@@ -41,7 +37,6 @@ namespace MessagesSys
             }
         }
 
-        // Метод для надсилання сповіщення всім підписникам конкретної категорії
         public void Notify(string category, string message)
         {
             if (_subscribers.ContainsKey(category))
